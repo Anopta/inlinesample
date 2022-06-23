@@ -12,7 +12,7 @@ class BookListView(ListView):
     model = models.Book
 
     def get_queryset(self):
-        return super().get_queryset().prefetch_related('edition_set', 'testimonial_set')
+        return super().get_queryset().prefetch_related("edition_set", "testimonial_set")
 
 
 class EditionInline(InlineFormSetFactory):
@@ -29,21 +29,23 @@ class TestimonialInline(InlineFormSetFactory):
     factory_kwargs = {"extra": 1}
 
 
-class BookCreateView(CreateWithInlinesView):
+class BetterMixin:
+    def get_template_names(self):
+        if self.request.GET.get("better"):
+            return ["books/book_better_form.html"]
+        return super().get_template_names()
+
+
+class BookCreateView(BetterMixin, CreateWithInlinesView):
     model = models.Book
     inlines = [EditionInline, TestimonialInline]
     fields = ["title", "author"]
 
     def get_success_url(self):
         return "/"
-    
-    def get_template_names(self):
-        if self.request.GET.get('better'):
-            return ["books/book_better_form.html"]
-        return super().get_template_names()
 
 
-class BookUpdateView(UpdateWithInlinesView):
+class BookUpdateView(BetterMixin, UpdateWithInlinesView):
     model = models.Book
     inlines = [EditionInline, TestimonialInline]
     fields = ["title", "author"]

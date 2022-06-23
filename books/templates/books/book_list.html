@@ -34,7 +34,7 @@ Add book
                 <td>
                     <a class='btn btn-xs' href='{% url "update" book.id %}'>Edit</a>
                     |
-                    <a class='btn btn-xs' href='{% url "update" book.id %}'>Better edit</a>
+                    <a class='btn btn-xs' href='{% url "update" book.id %}?better=1'>Better edit</a>
                 </td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>

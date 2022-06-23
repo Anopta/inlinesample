@@ -1,0 +1,16 @@
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% if field.field.widget.input_type == 'hidden' %}
+    {{ field }}
+{% else %}
+    <div class='flex-col my-1 mx-2'>
+        {% if field.name == "DELETE" %}
+            {{ field|add_class:""|attr:"onclick:delClick(this)"|as_crispy_field }}
+        {% elif field.name == "testimonial" %}
+            {{ field|attr:"rows:2"|as_crispy_field }}
+        {% else %}
+            {{ field|as_crispy_field }}
+        {% endif %}
+    </div>
+{% endif %}
