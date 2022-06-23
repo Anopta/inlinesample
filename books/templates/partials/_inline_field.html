@@ -5,7 +5,9 @@
     {{ field }}
 {% else %}
     <div class='flex-col my-1 mx-2'>
-        {% if field.name == "DELETE" %}
+        
+        
+        {% if "DELETE" in field.name  %}
             {{ field|add_class:""|attr:"onclick:delClick(this)"|as_crispy_field }}
         {% elif field.name == "testimonial" %}
             {{ field|attr:"rows:2"|as_crispy_field }}
