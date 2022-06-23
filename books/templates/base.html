@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <meta charset="UTF-8">
+    <title>{% block html_title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.17.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <body>
+        <div class="container mx-auto">
+            <h1 class='text-2xl'>{% block page_title %}{% endblock %}</h1>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
