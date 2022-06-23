@@ -11,6 +11,9 @@ from . import models
 class BookListView(ListView):
     model = models.Book
 
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('edition_set', 'testimonial_set')
+
 
 class EditionInline(InlineFormSetFactory):
     model = models.Edition
@@ -33,6 +36,11 @@ class BookCreateView(CreateWithInlinesView):
 
     def get_success_url(self):
         return "/"
+    
+    def get_template_names(self):
+        if self.request.GET.get('better'):
+            return ["books/book_better_form.html"]
+        return super().get_template_names()
 
 
 class BookUpdateView(UpdateWithInlinesView):

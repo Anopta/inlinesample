@@ -1,31 +1,59 @@
 {% extends "base.html" %}
 
 {% block html_title %}Book list{% endblock%}
-{% block page_title %}Book list
-<a href='{% url "create" %}' class='btn btn-primary btn-sm'>
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-      </svg>
-</a>
-{% endblock%}
+{% block page_title %}Book list{% endblock%}
 
 {% block content %}
+
+<a href='{% url "create" %}' class='btn btn-primary '>
+Add book
+</a>
+
+<a href='{% url "create" %}?better=true' class='btn btn-primary '>
+  Better add book
+</a>
 
 <div class="overflow-x-auto">
     <table class="table table-compact table-zebra w-full">
       <thead>
         <tr>
           <th>Id</th> 
+          <th>Edit</th> 
           <th>Name</th> 
           <th>Author</th> 
+          <th>Editions</th> 
+          <th>Testimonials</th> 
         </tr>
       </thead> 
       <tbody>
         {% for book in object_list %}
             <tr>
-                <td>{{ book.id }}</td>
+                <td>
+                  {{ book.id }}
+                </td>
+                <td>
+                    <a class='btn btn-xs' href='{% url "update" book.id %}'>Edit</a>
+                    |
+                    <a class='btn btn-xs' href='{% url "update" book.id %}'>Better edit</a>
+                </td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>
+                <td>
+                    {% for edition in book.edition_set.all %}
+                        {{ edition.publisher }}: {{ edition.year }} ({{ edition.pages }})
+                        {% if not  forloop.last %},{% endif %}
+                    {% empty %}
+                        -
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for testimonial in book.testimonial_set.all %}
+                        {{ testimonial.name }}: {{ testimonial.testimonial|truncatewords:10 }}
+                        {% if not forloop.last %},{% endif %}
+                    {% empty %}
+                        -
+                    {% endfor %}
+                </td>
             </tr>
     
         {% endfor %}
