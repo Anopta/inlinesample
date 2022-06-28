@@ -4,9 +4,8 @@ function inlineEditor(inlineSetName) {
 
     document.querySelector('#add-form-' + inlineSetName).addEventListener('click', ev => {
         ev.preventDefault()
-        console.log("OK")
-        let newForm = tmpl.content.cloneNode(true);
 
+        let newForm = tmpl.content.cloneNode(true);
         newForm.querySelectorAll('[id*=__prefix__]').forEach(el => {
             el.id = el.id.replace('__prefix__', counter.value);
             if (el.name) el.name = el.name.replace('__prefix__', counter.value);
@@ -17,6 +16,20 @@ function inlineEditor(inlineSetName) {
         })
 
         counter.value = 1 + Number(counter.value);
-        document.querySelector('form #card_' + inlineSetName + ' div.flex:last-of-type').insertAdjacentElement('afterend', newForm.children[0])
+        let last_element_selector = 'form #better_inline_' + inlineSetName + ' .inline-form:last-of-type'
+        document.querySelector(last_element_selector).insertAdjacentElement('afterend', newForm.children[0])
     })
 }
+
+function delClick(el) {
+    if(el.checked) {
+        el.parentElement.parentElement.parentElement.classList.add('border-red-500')
+    } else {
+        el.parentElement.parentElement.parentElement.classList.remove('border-red-500')
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function(event) {
+    inlineEditor('edition_set');
+    inlineEditor('testimonial_set');
+})

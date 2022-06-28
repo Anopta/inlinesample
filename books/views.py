@@ -17,7 +17,7 @@ class BookListView(ListView):
 class EditionInline(InlineFormSetFactory):
     model = models.Edition
     fields = ["publisher", "year", "pages"]
-    factory_kwargs = {"extra": 1}
+    factory_kwargs = {"extra": 0}
 
 
 class TestimonialInline(InlineFormSetFactory):

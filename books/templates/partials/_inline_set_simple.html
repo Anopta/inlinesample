@@ -1,0 +1,17 @@
+{% load crispy_forms_tags %}
+
+<div class="card w-full bg-base-100 shadow-xl card-bordered card-compact border border-gray-900">
+	<div class="card-body">
+		<h2 class="card-title">{{ title }}</h2>
+		{{ formset.management_form }}
+		{% for form in formset %}
+			<div class='flex border rounded p-1 m-1'>
+				{% for field in form %}
+					<div class='flex-col mx-2 my-2'>
+						{{ field|as_crispy_field }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	</div>
+</div>

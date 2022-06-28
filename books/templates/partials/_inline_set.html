@@ -1,44 +1,31 @@
-{% load i18n static %}
-
-<div id='card_{{ inline_name }}' class="card w-full bg-base-100 shadow-xl card-bordered card-compact border border-gray-900">
+<div id='better_inline_{{ inline_name }}' class="card w-full bg-base-100 shadow-xl card-bordered card-compact border border-gray-900">
     <div class="card-body">
-        <h2 class="card-title">{{ inline_title }}
+        <h2 class="card-title">
+            {{ inline_title }}
             <button class='btn btn-primary' type="button bg-blue-500" id="add-form-{{ inline_name }}">Add</button>
         </h2>
+        {% if formset.non_form_errors %}
+            <div class="alert alert-danger">{{ formset.non_form_errors }}</div>
+        {% endif %}
 
-            {% if formset.non_form_errors %}
-                <div class="alert alert-danger">
-                    {{ formset.non_form_errors }}
-                </div>
-            {% endif %}
-
-            <template id="empty-form-{{ inline_name }}">
-                <div class='flex border border-primary rounded p-1 m-1'>
-
+        <template id="empty-form-{{ inline_name }}">
+            <div class='flex border border-primary rounded p-1 m-1 inline-form'>
                 {% for field in formset.empty_form %}
                     {% include "partials/_inline_field.html" %}
                 {% endfor %}
-                </div>
-            </template>
+            </div>
+        </template>
 
-            {{ formset.management_form }}
+        {{ formset.management_form }}
             
-                
-                {% for form in formset %}
-                    <div class='flex border rounded p-1 m-1'>
-                        {% for field in form %}
-                            {% include "partials/_inline_field.html" %}
-                        {% endfor %}
-                    </div>
-                {% empty %}
-                    <div class='flex p-1 m-1'>
-                        <div class='alert alert-info p-1 '>
-                            Please press the add button to add a new row
-                        </div>
-                    </div>
+        {% for form in formset %}
+            <div class='flex border rounded p-1 m-1 inline-form'>
+                {% for field in form %}
+                    {% include "partials/_inline_field.html" %}
                 {% endfor %}
-
-            
-        </div> <!-- card body -->
-    
+            </div>
+        {% empty %}
+            <div class='flex p-1 m-1 inline-form'></div>
+        {% endfor %}
+    </div> <!-- card body -->   
 </div><!-- card -->

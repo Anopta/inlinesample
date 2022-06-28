@@ -13,41 +13,9 @@
             </div>
         </div>
 
-        {% with formset=inlines.0 %}
-            <div class="card w-full bg-base-100 shadow-xl card-bordered card-compact border border-gray-900">
-                <div class="card-body">
-                    <h2 class="card-title">Editions</h2>
-                    {{ formset.management_form }}
-                    {% for form in formset %}
-                        <div class='flex border rounded p-1 m-1'>
-                            {% for field in form %}
-                                <div class='flex-col mx-2 my-2'>
-                                    {{ field|as_crispy_field }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endwith %}
-
-        {% with formset=inlines.1 %}
-            <div class="card w-full bg-base-100 shadow-xl card-bordered card-compact border border-gray-900">
-                <div class="card-body">
-                    <h2 class="card-title">Testimonials</h2>
-                    {{ formset.management_form }}
-                    {% for form in formset %}
-                        <div class='flex border rounded p-1 m-1'>
-                            {% for field in form %}
-                                <div class='flex-col mx-2 my-2'>
-                                    {{ field|as_crispy_field }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endwith %}
+        {% include "partials/_inline_set_simple.html" with formset=inlines.0 title="Editions" %}
+        {% include "partials/_inline_set_simple.html" with formset=inlines.1 title="Testimonials" %}
+        
         <input type='submit' class='btn bg-blue-600' value='Save'>
         <a href='/' class='btn bg-gray-600'>Back</a>
     </form>

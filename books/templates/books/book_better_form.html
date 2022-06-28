@@ -22,20 +22,5 @@
 
 
 <script src="{% static 'inline-editor.js' %}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function(event) {
-        inlineEditor('edition_set');
-        inlineEditor('testimonial_set');
-    })
 
-    function delClick(el) {
-        console.log("DEL")
-        if(el.checked) {
-            el.parentElement.parentElement.parentElement.classList.add('border-red-500')
-        } else {
-            el.parentElement.parentElement.parentElement.classList.remove('border-red-500')
-        }
-    }
-
-  </script>
 {% endblock %}  
